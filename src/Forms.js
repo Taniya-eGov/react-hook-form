@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import "../App.css";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -20,111 +20,18 @@ const schema = yup.object().shape({
 });
 
 function Forms() {
+  const [data,setData]=useState();
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
 
   const submitForm = (data) => {
     console.log(data);
+    setData(data);
     alert("Employee is created");
   };
   return (
-    // <div className="Form">
-    //   <div className="title">Create Employee</div>
-    //   <div className="inputs">
-    //     <form onSubmit={handleSubmit(submitForm)}>
-    //       <input
-    //         type="text"
-    //         name="firstName"
-    //         ref={register}
-    //         placeholder="First Name..."
-    //       />
-    //       <p> {errors.firstName?.message} </p>
-    //       <input
-    //         type="text"
-    //         name="lastName"
-    //         placeholder="Last Name..."
-    //         ref={register}
-    //       />
-    //       <p> {errors.lastName?.message} </p>
-    //       <input
-    //         type="text"
-    //         name="email"
-    //         placeholder="Email..."
-    //         ref={register}
-    //       />
-    //       <p> {errors.email?.message} </p>
-    //       <input type="text" name="age" placeholder="Age..." ref={register} />
-    //       <p> {errors.age?.message} </p>
-    //       <input
-    //         type="text"
-    //         name="department"
-    //         placeholder="Department..."
-    //         ref={register}
-    //       />
-    //       <p> {errors.department?.message} </p>
-    //       <input
-    //         type="number"
-    //         name="phoneno"
-    //         placeholder="Phone number..."
-    //         ref={register}
-    //       />
-    //       <p> {errors.phoneno?.message} </p>
-    //       <input type="submit" id="submit" />
-    //     </form>
-    //   </div>
-    // </div>
-
-
-
-
-
-  
-        // <Form onSubmit={handleSubmit(submitForm)}>
-        //       <Grid container>
-        //         <Grid item xs={6}></Grid>
-        //   <Controls.Input
-        //     type="text"
-        //     name="firstName"
-        //     ref={register}
-        //     placeholder="First Name..."
-        //   />
-        //   <p> {errors.firstName?.message} </p>
-        //   <Controls.Input
-        //     type="text"
-        //     name="lastName"
-        //     placeholder="Last Name..."
-        //     ref={register}
-        //   />
-        //   <p> {errors.lastName?.message} </p>
-        //   <Controls.Input
-        //     type="text"
-        //     name="email"
-        //     placeholder="Email..."
-        //     ref={register}
-        //   />
-        //   <p> {errors.email?.message} </p>
-        //   <Controls.Input type="text" name="age" placeholder="Age..." ref={register} />
-        //   <p> {errors.age?.message} </p>
-        //   <Controls.Input
-        //     type="text"
-        //     name="department"
-        //     placeholder="Department..."
-        //     ref={register}
-        //   />
-        //   <p> {errors.department?.message} </p>
-        //   <Controls.Input
-        //     type="number"
-        //     name="phoneno"
-        //     placeholder="Phone number..."
-        //     ref={register}
-        //   />
-        //   <p> {errors.phoneno?.message} </p>
-        //   <Controls.Input type="submit" id="submit" />
-        //   </Grid>
-        // </Form>
-
-
+    <>
             <MainContainer>
       <Typography component="h2" variant="h5">
         Create Employee
@@ -171,6 +78,8 @@ function Forms() {
         </Form>
         </MainContainer>
 
+       <div>{data}</div>
+       </>
   );
 }
 
