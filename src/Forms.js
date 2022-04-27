@@ -20,14 +20,14 @@ const schema = yup.object().shape({
 });
 
 function Forms() {
-  const [data,setData]=useState();
+  // const [data,setData]=useState();
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
 
   const submitForm = (data) => {
     console.log(data);
-    setData(data);
+    // setData(data);
     alert("Employee is created");
   };
   return (
@@ -78,7 +78,7 @@ function Forms() {
         </Form>
         </MainContainer>
 
-       <div>{data}</div>
+       {/* <div>{data}</div> */}
        </>
   );
 }
