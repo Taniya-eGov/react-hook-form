@@ -4,19 +4,21 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 // import { Grid} from '@material-ui/core';
+import { useNavigate } from "react-router-dom";
 import {Form} from "./components/Form";
 import {Input} from "./components/Input";
 import { MainContainer } from "./components/MainContainer";
 import { Typography } from "@material-ui/core";
-
+import { useMutation} from "react-query";
+import service from "./services";
 
 const schema = yup.object().shape({
-  firstName: yup.string().required("First Name should be required please"),
-  lastName: yup.string().required(),
-  email: yup.string().email().required(),
+  empfname: yup.string().required("First Name should be required please"),
+  emplname: yup.string().required(),
+  emailid: yup.string().email().required(),
   age: yup.number().positive().integer().required(),
-  department: yup.string().required(),
-  phoneno: yup.string().min(10).max(10).required(),
+  city: yup.string().required(),
+  phoneNo: yup.string().min(10).max(10).required(),
 });
 
 function Forms() {
@@ -25,10 +27,15 @@ function Forms() {
     resolver: yupResolver(schema),
   });
 
+  const create=useMutation(service.create);
+  const navigate=useNavigate();
+
   const submitForm = (data) => {
     console.log(data);
-    // setData(data);
-    alert("Employee is created");
+    create.mutate({...data});
+    // onClick={()=>{navigate("/emp")}}
+    // alert("Employee is created");
+    navigate("/emp");
   };
   return (
     <>
@@ -36,45 +43,47 @@ function Forms() {
       <Typography component="h2" variant="h5">
         Create Employee
       </Typography>
-        <Form onSubmit={handleSubmit(submitForm)}>
+        <Form onSubmit={handleSubmit(submitForm)} >
           <Input
             type="text"
-            name="firstName"
+            name="empfname"
             ref={register}
             placeholder="First Name..."
           />
-          <p> {errors.firstName?.message} </p>
+          <p> {errors.empfname?.message} </p>
           <Input
             type="text"
-            name="lastName"
+            name="emplname"
             placeholder="Last Name..."
             ref={register}
           />
-          <p> {errors.lastName?.message} </p>
+          <p> {errors.emplname?.message} </p>
           <Input
             type="text"
-            name="email"
+            name="emailid"
             placeholder="Email..."
             ref={register}
           />
-          <p> {errors.email?.message} </p>
+          <p> {errors.emailid?.message} </p>
           <Input type="text" name="age" placeholder="Age..." ref={register} />
           <p> {errors.age?.message} </p>
           <Input
             type="text"
-            name="department"
-            placeholder="Department..."
+            name="city"
+            placeholder="city..."
             ref={register}
           />
-          <p> {errors.department?.message} </p>
+          <p> {errors.city?.message} </p>
           <Input
             type="number"
-            name="phoneno"
+            name="phoneNo"
             placeholder="Phone number..."
             ref={register}
           />
-          <p> {errors.phoneno?.message} </p>
-          <Input type="submit" id="submit" />
+          <p> {errors.phoneNo?.message} </p>
+          <Input type="submit" id="submit" 
+          //  onClick={()=>{navigate("/emp")}}
+            />
         </Form>
         </MainContainer>
 
